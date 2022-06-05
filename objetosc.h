@@ -1,0 +1,1 @@
+int ObliczObjetosc(int bok);
