@@ -11,6 +11,12 @@ INCLUDE=./include
 .c.o:
 	gcc -c -I $(INCLUDE) $<
 
+# reguly wzorcow do tworzenia bibliotek
+lib%.a: %.o
+	ar rs $@ $^
+lib%.so: %.o
+	gcc -shared -o $@ $^
+
 # tworzenie plikow obiektowych
 pole.o: pole.c
 objetosc.o: objetosc.c
@@ -18,11 +24,9 @@ main.o: main.c
 
 # tworzenie biblioteki statycznej
 libpole.a: pole.o
-	ar rs $@ $<
 
 #tworzenie biblioteki dynamicznej
 libobjetosc.so: objetosc.o
-	gcc -shared -o $@ $<
 
 Code2: main.o libpole.a libobjetosc.so
 	gcc -o $@ $^
