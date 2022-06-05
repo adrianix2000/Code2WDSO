@@ -1,16 +1,20 @@
 .PHONY: clean install
+.SUFFIXES: .c .o .so .a .h
 
 # katalogi w których zainstaluje program
 INSTDIR=/usr/local/bin
 LIBSPATH=/usr/lib
 
+INCLUDE=./include
+
+# regula przyrostkow do tworzenia plikow obiektowych
+.c.o:
+	gcc -c -I $(INCLUDE) $<
+
 # tworzenie plikow obiektowych
 pole.o: pole.c
-	gcc -c $<
 objetosc.o: objetosc.c
-	gcc -c $<
 main.o: main.c
-	gcc -c $<
 
 # tworzenie biblioteki statycznej
 libpole.a: pole.o
