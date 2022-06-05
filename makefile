@@ -1,6 +1,11 @@
 .PHONY: clean install
 .SUFFIXES: .c .o .so .a .h
 
+vpath %.c ./src
+vpath %.so ./lib
+vpath %.a ./lib
+vpath %.h ./include
+
 # katalogi w których zainstaluje program
 INSTDIR=/usr/local/bin
 LIBSPATH=/usr/lib
@@ -43,12 +48,18 @@ install: Code2
 	else \
 		echo "nie udalo sie zainstalowac Code2 $(INSTDIR) lub $(LIBSPATH) nie istnieje";\
 	fi
+	mkdir lib
+	mkdir bin
+	mv libpole.a lib
+	mv libobjetosc.so lib
+	mv Code2 bin
 
 clean:
+	rm -rf lib
+	rm -rf bin
 	rm -f *.o
 	rm -f *.so
 	rm -f *.a
-	rm Code2
 	sudo rm -f $(INSTDIR)/Code2
 	sudo rm -f $(LIBSPATH)/libobjetosc.so
 	echo "Pomyslnie usunieto pliki Code2"
